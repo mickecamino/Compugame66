@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name memory)(type Legacy)(uri ${KIPRJMOD}/memory.lib)(options "")(descr ""))
+  (lib (name 5101)(type Legacy)(uri ${KIPRJMOD}/5101.lib)(options "")(descr ""))
+  (lib (name UDN2891A)(type Legacy)(uri ${KIPRJMOD}/UDN2891A.lib)(options "")(descr ""))
+  (lib (name lamp_alt)(type Legacy)(uri ${KIPRJMOD}/lamp_alt.lib)(options "")(descr ""))
+)

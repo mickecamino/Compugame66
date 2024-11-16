@@ -1,0 +1,144 @@
+Spelfunktioner på 66
+Till bokföring och ändring av spelfunktioner finns det 13 olika funktioner som kan programmeras efter önskemål.
+För avläsning av de 13 funktionera finns det en test-omkopplare på displaykortet.
+
+De 13 funktionerna är:
+
+# 	Funktion 										Fabriksinställning
+00	High Score To Date 							500
+01	Antal betalningar								-
+02	Antal 66 / Frispel (se sida 2)			-
+03	Räknare 1										-
+04	Räknare 2 										-
+05	Räknare 3 										-
+06	Ej i bruk
+07	Antal frirundor								-
+08	Antal gånger High Score är uppnått		-
+09	Räknare 1 summa								700
+10	Räknare 2 summa								800
+11	Räknare 3 summa								900
+12	Ej i bruk
+13	Frirunda vid summa							54
+
+
+Funktionerna avläses enligt följande
+1. Maskinen ska stå i Game Over
+2. Testomkopplaren sätts i läge test
+3. I summafältet visas funktionsnumret
+4. Funktionens nuvarande värde läses på Player 1 och Player 2, de ska läsas som ett sex-siffrigt tal
+5. Funktionsnumret stegas fram med startknappen
+6. När värdena har lästs av ställs textomkopplare i spel-läge.
+
+Det går att montera 4 mekaniska räkneverk:
+Mekanisk räknare #1 räknar betalningar
+Mekanisk räknare #2 räknar antal 66
+Mekanisk räknare #1 räknar 2
+Mekanisk räknare #1 räknar 3
+
+Programmering och återställning av funktioner
+1. Maskinen ska stå i Game Over
+2. Ställ testomkopplaren till Test
+3. Ta bort bygel #1 på CPU-kortet
+4. Tryck på Startknappen till funktionenumret visas i summafältet
+5. Nuvarande värde visas i Player 1 och Player 2, läs dessa som ett sexsiffrigt tal.
+6. Segmenten över +, -, x och : -knapparna programmeras till det värde som ska ställas in genon att trycka på respektive knapp.
+   De två första siffrorna är alltid 00. När de 4 segmenten visar önskat värde trycker man på den "gula" pilen och värdet överförs till minnet.
+   Gällande Räknare 1, 2 och 3 i funktion 9, 10 och 11 programmeras dessa  i stigande följd.
+   Räknare 1 sätts till lägsta värde, Räknare 2 den mellanvärdet och Räknare 3 sätts till högsta värdet.
+   Räknare 1, 2 och 3 fungerar på följande sätt:
+   Räknare 1 räknar upp med 1 varje gång en spelare uppnår en summa som ligger mellan värdena i funktion 9 och 10.
+   Räknare 2 räknar upp med 1 varje gång en spelare uppnår en summa som ligger mellan värdena i funktion 10 och 11
+   Räknare 3 räknar upp med 1 varje gång en spelare uppnår en summa som ligger över värdet i funktion 11
+   Önskar man att inte använda en eller flera funktioner i 09-13 sätts talet 9999 i respektive funktion.
+
+   När programmeringen är klar sätts bygel 1 på plats och testomkopplaren ställs i läge Spel.
+
+Överst på CPU-kortet finns 4 byglar:
+1. Används till programmering
+2. Används ej
+3. Reglerar chansen att få 66, utan bygel är chansen större att få 66.
+4. Används för frispel. utan bygel ges frispel vid 66 och räknare 02 räknar frispel (66), med bygel raderas frispel och Räknare 2 räknar'antal 66.
+
+Test av 66
+Mata in ett mynt.
+Sätt testswitchen till läge test
+Tryck in startknappen, tärningen roterar nu långsamt och stoppar när startknappen släpps
+Man kan på så sätt testa alla kombinationer man vill.
+Efter test ställs testomkopplaren till läge spel.
+
+
+Felsökning ljud:
+Först testas ljudkortet genom att kortsluta de testpunkter för de olika ljuden. Fungerar ljudkortet ligger felet på CPU-kortet.
+
+
+Fel 										Felkälla
+Inget ljud 									    D6, C4, B4, D3, D1, A6, B6
+Inget bonus eller Game Over-ljud 		 C5, C4, C3, D6, D1, C2
+Inget bonusljud 							    B4, C4, C2, D2, D1
+Inget Game Over-ljud 						 A1, C4, C5, C2, D2, D1
+Felaktigt Game Over eller bonusljud 	 D2, D1, D3, D5, D4, D6, A6, B6
+Inget ljud alls 							    A1, C1, A3, B1, A5, B5
+Inget Coin-In, knapp eller betalljud 	 A1, A2, B2, C1, B3
+Felaktigt Coin-In och knappljud 			 B4, B3, B1, A3, A5, D5
+Felaktigt betalljud 						    B1, C5, B4, B3, A3, A5, B5
+Inget tärningsljud 							 A1, A3, B1, C1, B3
+Felaktigt tärningsljud 						 B1, A3, B4, B5
+
+Felsökningsguide
+Felen på spelet delas upp i:
+Spänningsfel
+Lampfel
+Displayfel
+Ljudfel
+
+Spänningsfel:
+Matningsspänningen på CPU-kortet är 5 volt som indikeras via en lysdiod. Fatts 5 volt kontrollera säkringen för 12 volt på nätdelen.
+Fattas lampljuset kontrollera säkringen för 24 volt.
+
+Lampfel:
+Lamporna på 66 styrs via latchar. Eventuellt lampfel kan rättas till genom byte av:
+-----------------------------------------------------
+Lampfel 								Ev defekta IC
+-----------------------------------------------------
+Bonus x 2
+Bonus x 1
+66 fältet (fyra lampor)
+Starknappen 							A2, B3
+-----------------------------------------------------
+1 spel
+Free play
+Free Round
+Game Over
+Tilt
+Bonus x 5
+Bonux x 4
+Bonux x 3 								A4, B4
+-----------------------------------------------------
+Tärning 1,2,3,4,5 eller 6 				A5, B5
+-----------------------------------------------------
+Spelare 1
+2 Spel
+Spelare 2
+High Score 								A6, B6
+-----------------------------------------------------
+
+Display-fel
+7-segmentsdisplayerna på 66 är multiplexade.
+-----------------------------------------------------
+Fel 									Evt, defekt krets
+-----------------------------------------------------
+Vissa segment fattas 					B1, B2, E6
+Felaktigt eller inga siffror 			A1, D6
+-----------------------------------------------------
+
+Ljudfel
+Kan felet inte hittas via guiden för felsökning ljud kan följande kretsar kontrolleras:
+-----------------------------------------------------
+Ljud fattas 							Ev defekta kretsar
+-----------------------------------------------------
+Inget Game Over-ljud 					A6, B6
+Alla andra ljud 						A8, B8
+-----------------------------------------------------
+
+Mekanisk räknare
+Är maskinen försedd med mekanisk räknare byt då vid räknefel krestarna A8, B8
