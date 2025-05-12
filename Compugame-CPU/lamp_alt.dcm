@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP Lamp_alt
-D Lamp
-K lamp
-F ~
-$ENDCMP
-#
-#End Doc Library
